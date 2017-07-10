@@ -1,0 +1,13 @@
+<div class="ui-g">
+  <div class="ui-g-12 ui-md-12 ui-lg-12">
+    <p-panel header="Partidas activas">
+      <p-dataList [value]="games$ | async" emptyMessage="No hay partidas activas" [paginator]="true" [rows]="10">
+        <ng-template let-game pTemplate="item">
+          <div class="link" [routerLink]="['/game', game.$key]">
+            <span>&#9812;{{ game.white }} - &#9818;{{ game.black }}</span>
+          </div>
+        </ng-template>
+      </p-dataList>
+    </p-panel>
+  </div>
+</div>

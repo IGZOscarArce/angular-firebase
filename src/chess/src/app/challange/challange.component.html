@@ -1,0 +1,39 @@
+<div class="ui-g">
+  <div class="ui-g-12 ui-md-8 ui-lg-8">
+    <p-panel header="Retos activos">
+      <p-dataList [value]="challanges$ | async" emptyMessage="No hay retos activos" [paginator]="true" [rows]="10">
+        <ng-template let-challange pTemplate="item">
+          <div [ngClass]="{main: challange.$key == myUid}">
+            <span>{{ challange.challenging }}</span>
+            <span *ngIf="!challange.color" md-list-icon pTooltip="Sorteo" tooltipPosition="right">&#9812;&#9818;</span>
+            <span *ngIf="challange.color == 'b'" md-list-icon pTooltip="Blancas" tooltipPosition="right">&#9812;</span>
+            <span *ngIf="challange.color == 'w'" md-list-icon pTooltip="Negras" tooltipPosition="right">&#9818;</span>
+            <span>{{ challange.time / 60 }}'+{{ challange.increase }}''</span>
+            <button *ngIf="challange.$key != myUid; else myChallange" (click)="acceptChallenge(challange)" pButton label="Jugar"></button>
+            <ng-template #myChallange>
+              <button (click)="removeChallenge(challange)" pButton label="Cancelar"></button>
+            </ng-template>
+          </div>
+        </ng-template>
+      </p-dataList>
+    </p-panel>
+  </div>
+  <div class="ui-g-12 ui-md-4 ui-lg-4 ui-fluid">
+    <p-panel header="Nuevo reto">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h3>Color: {{ !myChallange.color ? '&#9812;&#9818;' : (myChallange.color == 'w' ? '&#9812;' : '&#9818;') }}</h3>
+          <p-radioButton name="group2" value="" label="&#9812;&#9818;" [(ngModel)]="myChallange.color" pTooltip="Sorteo" tooltipPosition="right"></p-radioButton>
+          <p-radioButton name="group2" value="w" label="&#9812;" [(ngModel)]="myChallange.color" pTooltip="Blancas" tooltipPosition="right"></p-radioButton>
+          <p-radioButton name="group2" value="b" label="&#9818;" [(ngModel)]="myChallange.color" pTooltip="Negras" tooltipPosition="right"></p-radioButton>
+        </div>
+        <div class="ui-g-12">
+          <h3>Tiempo: {{ myChallange.time / 60 }}'+{{ myChallange.increase }}''</h3>
+          <p-slider [(ngModel)]="myChallange.time" [min]="60" [max]="900" [step]="60"></p-slider><br>
+          <p-slider [(ngModel)]="myChallange.increase" [min]="0" [max]="180" [step]="10"></p-slider><br>
+        </div>
+      </div>
+      <button (click)="createChallenge()" pButton label="Retar"></button>
+    </p-panel>
+  </div>
+</div>

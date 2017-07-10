@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "chess-f3400",
+    "prod": "chess-f3400"
+  }
+}
