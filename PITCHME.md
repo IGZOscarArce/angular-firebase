@@ -144,24 +144,42 @@ import { environment } from '../environments/environment';
 
 +++
 
-### Import and load FirebaseModule
-
-Edit src/app/app.module.ts
+### Use Firebase in your components
 
 ```typescript
-import { AngularFireModule } from 'angularfire2';
-import { environment } from '../environments/environment';
+import {Component} from '@angular/core';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 
-@NgModule({
-  // declarations
-  imports: [
-    // BrowserModule, etc
-    AngularFireModule.initializeApp(environment.firebase),
-  ]
-  // providers
-  // bootstrap
+@Component({
+  selector: 'project-name-app',
+  template: `
+  <ul>
+    <li *ngFor="let item of items | async">
+      {{ item.name }}
+    </li>
+  </ul>
+  `
 })
+export class MyApp {
+  items: FirebaseListObservable<any[]>;
+  constructor(db: AngularFireDatabase) {
+    this.items = db.list('/items');
+  }
+}
 ```
+
+@[2](import angularfire modules)
+@[17](define resource reference)
+@[8-10](parse template using resource with async pipe)
+
+---
+
+## Firebase & application (without angularfire2)
+
++++?code=src/chess/src/app/game-guard.service.ts&lang=typescript
+
+@[11](import firebase library)
+@[20-29](define resource reference)
 
 ---
 
