@@ -78,7 +78,6 @@ $> firebase deploy --only hosting
 
 ```sh
 $> npm install --save angularfire2 firebase
-# creates new app
 ```
 
 +++
@@ -139,6 +138,9 @@ import { environment } from '../environments/environment';
   // bootstrap
 })
 ```
+
+@[1-2](import modules)
+@[8](initialize application with firebase config)
 
 +++
 
