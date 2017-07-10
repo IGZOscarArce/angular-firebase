@@ -42,7 +42,7 @@ $> ng serve
 
 ### What is Firebase?
 
-Real time database and much more...
+Realtime database and much more...
 
 - Hosting service
 - Storage service
